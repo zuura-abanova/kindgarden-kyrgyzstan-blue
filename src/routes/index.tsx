@@ -8,13 +8,13 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "Kun Bala — Kindergarten in Bishkek, Kyrgyzstan" },
+      { title: "Akniet — Kindergarten in Bishkek, Kyrgyzstan" },
       {
         name: "description",
         content:
           "A warm, modern kindergarten in Kok-Jar, Bishkek. Caring teachers, creative programs, and a safe space for children ages 2–6.",
       },
-      { property: "og:title", content: "Kun Bala — Kindergarten in Bishkek" },
+      { property: "og:title", content: "Akniet — Kindergarten in Bishkek" },
       {
         property: "og:description",
         content: "Where every child grows, plays, and shines. Son-Kol 43, Kok-Jar, Bishkek.",
@@ -42,7 +42,7 @@ function Index() {
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[image:var(--gradient-hero)] text-primary-foreground">
               <Sparkles className="h-5 w-5" />
             </span>
-            <span>Kun Bala</span>
+            <span>Akniet</span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
             <a href="#about" className="hover:text-primary transition-colors">About</a>
@@ -103,7 +103,7 @@ function Index() {
             <div className="absolute -inset-4 bg-[image:var(--gradient-hero)] rounded-3xl opacity-20 blur-2xl" aria-hidden />
             <img
               src={heroKids}
-              alt="Happy children playing at Kun Bala kindergarten in Bishkek"
+              alt="Happy children playing at Akniet kindergarten in Bishkek"
               width={1536}
               height={1024}
               className="relative rounded-3xl shadow-[var(--shadow-soft)] w-full h-auto object-cover"
@@ -118,7 +118,7 @@ function Index() {
           <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">About Us</span>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight">A second home for your child</h2>
           <p className="text-lg text-muted-foreground leading-relaxed">
-            At Kun Bala, we believe every child is unique. Our caring teachers create
+            At Akniet, we believe every child is unique. Our caring teachers create
             a safe, joyful space where children explore, make friends, and discover
             the world around them. Located in beautiful Kok-Jar, our bright classrooms
             and outdoor garden are designed for curious little explorers.
@@ -194,7 +194,7 @@ function Index() {
                 </div>
                 <div>
                   <div className="font-semibold">Email</div>
-                  <div className="opacity-90">hello@kunbala.kg</div>
+                  <div className="opacity-90">hello@akniet.kg</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -213,7 +213,7 @@ function Index() {
 
       <footer className="border-t border-border py-8">
         <div className="container mx-auto px-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Kun Bala Kindergarten · Bishkek, Kyrgyzstan
+          © {new Date().getFullYear()} Akniet Kindergarten · Bishkek, Kyrgyzstan
         </div>
       </footer>
     </div>
