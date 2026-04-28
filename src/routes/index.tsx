@@ -16,6 +16,18 @@ import gal10 from "@/assets/akniet/photo-10.jpg";
 import gal11 from "@/assets/akniet/photo-11.jpg";
 import tourVideo from "@/assets/akniet/tour.mp4";
 import tourPoster from "@/assets/akniet/tour-poster.jpg";
+import gis1 from "@/assets/akniet/gis-1.jpg";
+import gis2 from "@/assets/akniet/gis-2.jpg";
+import gis3 from "@/assets/akniet/gis-3.jpg";
+import gis4 from "@/assets/akniet/gis-4.jpg";
+import gis5 from "@/assets/akniet/gis-5.jpg";
+import gis6 from "@/assets/akniet/gis-6.jpg";
+import gis7 from "@/assets/akniet/gis-7.jpg";
+import gis8 from "@/assets/akniet/gis-8.jpg";
+import gis9 from "@/assets/akniet/gis-9.jpg";
+import gis10 from "@/assets/akniet/gis-10.jpg";
+import gis11 from "@/assets/akniet/gis-11.jpg";
+import gis12 from "@/assets/akniet/gis-12.jpg";
 import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -426,11 +438,11 @@ function Index() {
                 </button>
               )}
             </div>
-            {[gal2, gal3, gal4, gal5, gal6, gal7, gal8, gal9, gal10, gal11].map((src, i) => (
+            {[gis1, gis2, gis3, gis4, gis5, gis6, gis7, gis8, gis9, gis10, gis11, gis12, gal2, gal3, gal4, gal5, gal6, gal7, gal8, gal9, gal10, gal11].map((src, i) => (
               <div
                 key={i}
                 className={`relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] ${
-                  i === 5 ? "md:col-span-2 md:row-span-2" : ""
+                  i === 5 || i === 13 ? "md:col-span-2 md:row-span-2" : ""
                 }`}
               >
                 <img
