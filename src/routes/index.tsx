@@ -346,7 +346,7 @@ function Index() {
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.contact.title}</h2>
               <p className="opacity-90 text-lg max-w-md">{c.contact.desc}</p>
               <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8 mt-4">
-                <a href={realPhoneHref}>{c.contact.call}</a>
+                <a href={phoneHref}>{c.contact.call}</a>
               </Button>
             </div>
             <div className="space-y-5">
@@ -366,8 +366,8 @@ function Index() {
                 </div>
                 <div>
                   <div className="font-semibold">{c.contact.phone}</div>
-                  <a href={realPhoneHref} className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline">
-                    {realPhoneDisplay}
+                  <a href={phoneHref} className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline">
+                    {phoneDisplay}
                   </a>
                 </div>
               </div>
