@@ -39,7 +39,7 @@ type Lang = "en" | "ru" | "ky";
 
 const t = {
   en: {
-    nav: { about: "About", programs: "Programs", contact: "Contact", enroll: "Enroll Now" },
+    nav: { about: "About", programs: "Programs", gallery: "Gallery", contact: "Contact", enroll: "Enroll Now" },
     hero: {
       badge: "Kok-Jar, Bishkek",
       title1: "Where little hearts",
@@ -86,9 +86,14 @@ const t = {
     },
     footer: "Akniet Kindergarten · Bishkek, Kyrgyzstan",
     heroAlt: "Happy children playing at Akniet kindergarten in Bishkek",
+    gallery: {
+      tag: "Gallery",
+      title: "A look inside Akniet",
+      desc: "Bright classrooms, cozy play areas and our outdoor space — take a peek at where your child will spend their day.",
+    },
   },
   ru: {
-    nav: { about: "О нас", programs: "Программы", contact: "Контакты", enroll: "Записаться" },
+    nav: { about: "О нас", programs: "Программы", gallery: "Галерея", contact: "Контакты", enroll: "Записаться" },
     hero: {
       badge: "Кок-Жар, Бишкек",
       title1: "Где маленькие сердца",
@@ -135,9 +140,14 @@ const t = {
     },
     footer: "Детский сад Akniet · Бишкек, Кыргызстан",
     heroAlt: "Счастливые дети в детском саду Akniet в Бишкеке",
+    gallery: {
+      tag: "Галерея",
+      title: "Загляните в Akniet",
+      desc: "Светлые классы, уютные игровые зоны и наша территория — посмотрите, где ваш ребёнок проведёт свой день.",
+    },
   },
   ky: {
-    nav: { about: "Биз жөнүндө", programs: "Программалар", contact: "Байланыш", enroll: "Жазылуу" },
+    nav: { about: "Биз жөнүндө", programs: "Программалар", gallery: "Галерея", contact: "Байланыш", enroll: "Жазылуу" },
     hero: {
       badge: "Көк-Жар, Бишкек",
       title1: "Кичинекей жүрөктөр",
@@ -184,6 +194,11 @@ const t = {
     },
     footer: "Akniet балдар бакчасы · Бишкек, Кыргызстан",
     heroAlt: "Akniet балдар бакчасындагы бактылуу балдар",
+    gallery: {
+      tag: "Галерея",
+      title: "Akniet'ке көз чаптырыңыз",
+      desc: "Жарык класстар, жайлуу оюн аянтчалары жана короо — балаңыз күнүн кайда өткөрөрүн көрүңүз.",
+    },
   },
 } as const;
 
@@ -219,6 +234,7 @@ function Index() {
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
             <a href="#about" className="hover:text-primary transition-colors">{c.nav.about}</a>
             <a href="#programs" className="hover:text-primary transition-colors">{c.nav.programs}</a>
+            <a href="#gallery" className="hover:text-primary transition-colors">{c.nav.gallery}</a>
             <a href="#contact" className="hover:text-primary transition-colors">{c.nav.contact}</a>
           </nav>
           <div className="flex items-center gap-3">
@@ -348,6 +364,35 @@ function Index() {
                 </Card>
               );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
+      {/* Gallery */}
+      <section id="gallery" className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">{c.gallery.tag}</span>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.gallery.title}</h2>
+            <p className="text-muted-foreground text-lg">{c.gallery.desc}</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            {[gal2, gal3, gal4, gal5, gal6, gal7, gal8, gal9, gal10, gal11].map((src, i) => (
+              <div
+                key={i}
+                className={`relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] ${
+                  i === 0 || i === 5 ? "md:col-span-2 md:row-span-2" : ""
+                }`}
+              >
+                <img
+                  src={src}
+                  alt={`${c.gallery.title} — ${i + 1}`}
+                  loading="lazy"
+                  className="h-full w-full object-cover aspect-square hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
