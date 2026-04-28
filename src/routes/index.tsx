@@ -14,7 +14,9 @@ import gal8 from "@/assets/akniet/photo-8.jpg";
 import gal9 from "@/assets/akniet/photo-9.jpg";
 import gal10 from "@/assets/akniet/photo-10.jpg";
 import gal11 from "@/assets/akniet/photo-11.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe } from "lucide-react";
+import tourVideo from "@/assets/akniet/tour.mp4";
+import tourPoster from "@/assets/akniet/tour-poster.jpg";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -90,6 +92,9 @@ const t = {
       tag: "Gallery",
       title: "A look inside Akniet",
       desc: "Bright classrooms, cozy play areas and our outdoor space — take a peek at where your child will spend their day.",
+      videoTitle: "Tour of our kindergarten",
+      videoCaption: "Take a short walk through Akniet",
+      playLabel: "Play video",
     },
   },
   ru: {
@@ -144,6 +149,9 @@ const t = {
       tag: "Галерея",
       title: "Загляните в Akniet",
       desc: "Светлые классы, уютные игровые зоны и наша территория — посмотрите, где ваш ребёнок проведёт свой день.",
+      videoTitle: "Экскурсия по детскому саду",
+      videoCaption: "Короткая прогулка по Akniet",
+      playLabel: "Смотреть видео",
     },
   },
   ky: {
@@ -198,6 +206,9 @@ const t = {
       tag: "Галерея",
       title: "Akniet'ке көз чаптырыңыз",
       desc: "Жарык класстар, жайлуу оюн аянтчалары жана короо — балаңыз күнүн кайда өткөрөрүн көрүңүз.",
+      videoTitle: "Бакчабыз менен таанышуу",
+      videoCaption: "Akniet боюнча кыска саякат",
+      playLabel: "Видеону көрүү",
     },
   },
 } as const;
@@ -207,6 +218,7 @@ const programIcons = [BookOpen, Palette, Music, Users, Heart, Sparkles];
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const c = t[lang];
+  const [videoPlaying, setVideoPlaying] = useState(false);
   const phoneDisplay = "+996 55 012 76 35";
   const phoneHref = "tel:+996550127635";
 
@@ -378,11 +390,47 @@ function Index() {
             <p className="text-muted-foreground text-lg">{c.gallery.desc}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            <div className="relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] md:col-span-2 md:row-span-2 group bg-black">
+              {videoPlaying ? (
+                <video
+                  src={tourVideo}
+                  poster={tourPoster}
+                  controls
+                  autoPlay
+                  playsInline
+                  className="h-full w-full object-cover aspect-square"
+                />
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setVideoPlaying(true)}
+                  aria-label={c.gallery.playLabel}
+                  className="relative block h-full w-full aspect-square text-left"
+                >
+                  <img
+                    src={tourPoster}
+                    alt={c.gallery.videoTitle}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <span className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" aria-hidden />
+                  <span className="absolute inset-0 flex items-center justify-center">
+                    <span className="flex h-16 w-16 md:h-20 md:w-20 items-center justify-center rounded-full bg-white/95 text-primary shadow-[var(--shadow-soft)] transition-transform duration-300 group-hover:scale-110">
+                      <Play className="h-7 w-7 md:h-9 md:w-9 fill-current ml-1" />
+                    </span>
+                  </span>
+                  <span className="absolute bottom-0 left-0 right-0 p-4 md:p-6 text-white">
+                    <span className="block text-base md:text-lg font-semibold">{c.gallery.videoTitle}</span>
+                    <span className="block text-xs md:text-sm opacity-90">{c.gallery.videoCaption}</span>
+                  </span>
+                </button>
+              )}
+            </div>
             {[gal2, gal3, gal4, gal5, gal6, gal7, gal8, gal9, gal10, gal11].map((src, i) => (
               <div
                 key={i}
                 className={`relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] ${
-                  i === 0 || i === 5 ? "md:col-span-2 md:row-span-2" : ""
+                  i === 5 ? "md:col-span-2 md:row-span-2" : ""
                 }`}
               >
                 <img
