@@ -1,8 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import heroKids from "@/assets/hero-kids.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -12,7 +13,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A warm, modern kindergarten in Kok-Jar, Bishkek. Caring teachers, creative programs, and a safe space for children ages 2–6.",
+          "A warm, modern kindergarten in Kok-Jar, Bishkek. Caring teachers, creative programs, and a safe space for children ages 1.5–6.",
       },
       { property: "og:title", content: "Akniet — Kindergarten in Bishkek" },
       {
@@ -23,21 +24,183 @@ export const Route = createFileRoute("/")({
   }),
 });
 
-const programs = [
-  { icon: BookOpen, title: "Early Learning", desc: "Letters, numbers and curiosity through play-based discovery." },
-  { icon: Palette, title: "Creative Arts", desc: "Painting, crafting and storytelling to spark imagination." },
-  { icon: Music, title: "Music & Movement", desc: "Singing, dancing and rhythm to build confidence." },
-  { icon: Users, title: "Social Skills", desc: "Friendship, sharing and kindness in every activity." },
-  { icon: Heart, title: "Caring Environment", desc: "Small groups with attentive, certified teachers." },
-  { icon: Sparkles, title: "Two Languages", desc: "Daily lessons in Kyrgyz, Russian and English." },
-];
+type Lang = "en" | "ru" | "ky";
+
+const PHONE_DISPLAY = "+996 555 012 76 35";
+const PHONE_HREF = "tel:+996555012763547".replace("+996555012763547", "+996555012763  5").trim();
+
+const t = {
+  en: {
+    nav: { about: "About", programs: "Programs", contact: "Contact", enroll: "Enroll Now" },
+    hero: {
+      badge: "Kok-Jar, Bishkek",
+      title1: "Where little hearts",
+      title2: "learn to shine",
+      desc: "A warm, modern kindergarten in the heart of Bishkek. We help children ages 1.5–6 grow through play, creativity, and care.",
+      cta1: "Book a Tour",
+      cta2: "Our Programs",
+      stats: [
+        { n: "1.5–6", l: "Years old" },
+        { n: "8:1", l: "Child–teacher" },
+        { n: "3", l: "Languages" },
+      ],
+    },
+    about: {
+      tag: "About Us",
+      title: "A second home for your child",
+      desc: "At Akniet, we believe every child is unique. Our caring teachers create a safe, joyful space where children explore, make friends, and discover the world around them. Located in beautiful Kok-Jar, our bright classrooms and outdoor garden are designed for curious little explorers. We welcome children from 1.5 to 6 years old.",
+    },
+    programs: {
+      tag: "Programs",
+      title: "What we offer",
+      desc: "A balanced day of learning, creativity, play and rest.",
+      items: [
+        { title: "Early Learning", desc: "Letters, numbers and curiosity through play-based discovery." },
+        { title: "Creative Arts", desc: "Painting, crafting and storytelling to spark imagination." },
+        { title: "Music & Movement", desc: "Singing, dancing and rhythm to build confidence." },
+        { title: "Social Skills", desc: "Friendship, sharing and kindness in every activity." },
+        { title: "Caring Environment", desc: "Small groups with attentive, certified teachers." },
+        { title: "Three Languages", desc: "Daily lessons in Kyrgyz, Russian and English." },
+      ],
+    },
+    contact: {
+      tag: "Visit Us",
+      title: "Come say hello",
+      desc: "We'd love to show you around our kindergarten. Schedule a tour or give us a call — we're here to answer your questions.",
+      call: "Call Us",
+      address: "Address",
+      addr1: "Son-Kol Street 43, Kok-Jar",
+      addr2: "Bishkek, Kyrgyzstan",
+      phone: "Phone",
+      email: "Email",
+      hours: "Hours",
+      hoursVal: "Mon–Fri: 8:00 — 18:30",
+    },
+    footer: "Akniet Kindergarten · Bishkek, Kyrgyzstan",
+    heroAlt: "Happy children playing at Akniet kindergarten in Bishkek",
+  },
+  ru: {
+    nav: { about: "О нас", programs: "Программы", contact: "Контакты", enroll: "Записаться" },
+    hero: {
+      badge: "Кок-Жар, Бишкек",
+      title1: "Где маленькие сердца",
+      title2: "учатся сиять",
+      desc: "Тёплый современный детский сад в самом сердце Бишкека. Мы помогаем детям от 1,5 до 6 лет расти через игру, творчество и заботу.",
+      cta1: "Записаться на экскурсию",
+      cta2: "Наши программы",
+      stats: [
+        { n: "1,5–6", l: "Возраст" },
+        { n: "8:1", l: "Дети–педагог" },
+        { n: "3", l: "Языка" },
+      ],
+    },
+    about: {
+      tag: "О нас",
+      title: "Второй дом для вашего ребёнка",
+      desc: "В Akniet мы верим, что каждый ребёнок уникален. Наши заботливые педагоги создают безопасное и радостное пространство, где дети исследуют мир, заводят друзей и открывают новое. Светлые классы и уютный сад в Кок-Жаре созданы для маленьких исследователей. Принимаем детей от 1,5 до 6 лет.",
+    },
+    programs: {
+      tag: "Программы",
+      title: "Что мы предлагаем",
+      desc: "Сбалансированный день обучения, творчества, игр и отдыха.",
+      items: [
+        { title: "Раннее развитие", desc: "Буквы, цифры и любознательность через игру." },
+        { title: "Творчество", desc: "Рисование, поделки и сказки для развития фантазии." },
+        { title: "Музыка и движение", desc: "Песни, танцы и ритм для уверенности в себе." },
+        { title: "Социальные навыки", desc: "Дружба, доброта и умение делиться каждый день." },
+        { title: "Заботливая среда", desc: "Небольшие группы и сертифицированные педагоги." },
+        { title: "Три языка", desc: "Ежедневные занятия на кыргызском, русском и английском." },
+      ],
+    },
+    contact: {
+      tag: "Посетите нас",
+      title: "Приходите в гости",
+      desc: "Мы с радостью покажем вам наш детский сад. Запишитесь на экскурсию или позвоните — мы ответим на все вопросы.",
+      call: "Позвонить",
+      address: "Адрес",
+      addr1: "ул. Сон-Көл 43, Кок-Жар",
+      addr2: "Бишкек, Кыргызстан",
+      phone: "Телефон",
+      email: "Эл. почта",
+      hours: "Часы работы",
+      hoursVal: "Пн–Пт: 8:00 — 18:30",
+    },
+    footer: "Детский сад Akniet · Бишкек, Кыргызстан",
+    heroAlt: "Счастливые дети в детском саду Akniet в Бишкеке",
+  },
+  ky: {
+    nav: { about: "Биз жөнүндө", programs: "Программалар", contact: "Байланыш", enroll: "Жазылуу" },
+    hero: {
+      badge: "Көк-Жар, Бишкек",
+      title1: "Кичинекей жүрөктөр",
+      title2: "жаркырап өсөт",
+      desc: "Бишкектин жүрөгүндөгү жылуу, заманбап балдар бакчасы. Биз 1,5 жаштан 6 жашка чейинки балдарга оюн, чыгармачылык жана кам көрүү аркылуу өсүүгө жардам беребиз.",
+      cta1: "Экскурсияга жазылуу",
+      cta2: "Программаларыбыз",
+      stats: [
+        { n: "1,5–6", l: "Жаш" },
+        { n: "8:1", l: "Бала–тарбиячы" },
+        { n: "3", l: "Тил" },
+      ],
+    },
+    about: {
+      tag: "Биз жөнүндө",
+      title: "Балаңыз үчүн экинчи үй",
+      desc: "Akniet'те ар бир бала уникалдуу деп ишенебиз. Камкор тарбиячыларыбыз балдар үчүн коопсуз, кубанычтуу чөйрө түзөт. Көк-Жардагы жарык класстарыбыз жана бакчабыз кичинекей изилдөөчүлөр үчүн арналган. 1,5 жаштан 6 жашка чейинки балдарды кабыл алабыз.",
+    },
+    programs: {
+      tag: "Программалар",
+      title: "Биз эмнени сунуштайбыз",
+      desc: "Окуу, чыгармачылык, оюн жана эс алуу — тең салмактуу күн.",
+      items: [
+        { title: "Эрте өнүгүү", desc: "Тамгалар, сандар жана кызыгуу — оюн аркылуу." },
+        { title: "Чыгармачылык", desc: "Сүрөт, кол өнөрчүлүк жана жомоктор." },
+        { title: "Музыка жана кыймыл", desc: "Ыр, бий жана ритм — өзүнө ишенүү үчүн." },
+        { title: "Коомдук көндүмдөр", desc: "Достук, боорукердик жана бөлүшүү." },
+        { title: "Камкор чөйрө", desc: "Кичи топтор жана тажрыйбалуу тарбиячылар." },
+        { title: "Үч тил", desc: "Күнүмдүк сабактар: кыргыз, орус, англис." },
+      ],
+    },
+    contact: {
+      tag: "Бизге келиңиз",
+      title: "Учурашууга келиңиз",
+      desc: "Бакчабыз менен таанышууга чакырабыз. Экскурсияга жазылыңыз же чалыңыз — суроолоруңузга жооп беребиз.",
+      call: "Чалуу",
+      address: "Дарек",
+      addr1: "Сон-Көл көчөсү 43, Көк-Жар",
+      addr2: "Бишкек, Кыргызстан",
+      phone: "Телефон",
+      email: "Электрондук почта",
+      hours: "Иш убактысы",
+      hoursVal: "Дүй–Жума: 8:00 — 18:30",
+    },
+    footer: "Akniet балдар бакчасы · Бишкек, Кыргызстан",
+    heroAlt: "Akniet балдар бакчасындагы бактылуу балдар",
+  },
+} as const;
+
+const programIcons = [BookOpen, Palette, Music, Users, Heart, Sparkles];
 
 function Index() {
+  const [lang, setLang] = useState<Lang>("en");
+  const c = t[lang];
+  const phoneDisplay = "+996 555 012 76 35";
+  const phoneHref = "tel:+996555012763547";
+  // Correct phone: +996 55 012 76 35 — 9 digits after country code
+  const realPhoneDisplay = "+996 55 012 76 35";
+  const realPhoneHref = "tel:+996550127635";
+
+  const langs: { code: Lang; label: string }[] = [
+    { code: "en", label: "EN" },
+    { code: "ru", label: "RU" },
+    { code: "ky", label: "KY" },
+  ];
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="container mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-2 font-bold text-xl">
             <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[image:var(--gradient-hero)] text-primary-foreground">
               <Sparkles className="h-5 w-5" />
@@ -45,13 +208,50 @@ function Index() {
             <span>Akniet</span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
-            <a href="#about" className="hover:text-primary transition-colors">About</a>
-            <a href="#programs" className="hover:text-primary transition-colors">Programs</a>
-            <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+            <a href="#about" className="hover:text-primary transition-colors">{c.nav.about}</a>
+            <a href="#programs" className="hover:text-primary transition-colors">{c.nav.programs}</a>
+            <a href="#contact" className="hover:text-primary transition-colors">{c.nav.contact}</a>
           </nav>
-          <Button asChild className="rounded-full shadow-[var(--shadow-soft)]">
-            <a href="#contact">Enroll Now</a>
-          </Button>
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-1 rounded-full border border-border bg-card p-1">
+              <Globe className="h-4 w-4 ml-2 text-muted-foreground" />
+              {langs.map((l) => (
+                <button
+                  key={l.code}
+                  onClick={() => setLang(l.code)}
+                  className={`px-2.5 py-1 text-xs font-semibold rounded-full transition-colors ${
+                    lang === l.code
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  aria-label={`Switch to ${l.label}`}
+                >
+                  {l.label}
+                </button>
+              ))}
+            </div>
+            <Button asChild className="rounded-full shadow-[var(--shadow-soft)]">
+              <a href="#contact">{c.nav.enroll}</a>
+            </Button>
+          </div>
+        </div>
+        {/* Mobile lang switcher */}
+        <div className="sm:hidden flex justify-center pb-3 -mt-1">
+          <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1">
+            {langs.map((l) => (
+              <button
+                key={l.code}
+                onClick={() => setLang(l.code)}
+                className={`px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
+                  lang === l.code
+                    ? "bg-primary text-primary-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </div>
         </div>
       </header>
 
@@ -64,38 +264,32 @@ function Index() {
         <div className="container relative mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32 grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
-              <MapPin className="h-4 w-4" /> Kok-Jar, Bishkek
+              <MapPin className="h-4 w-4" /> {c.hero.badge}
             </span>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
-              Where little hearts <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">learn to shine</span>
+              {c.hero.title1} <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">{c.hero.title2}</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
-              A warm, modern kindergarten in the heart of Bishkek. We help children
-              ages 2–6 grow through play, creativity, and care.
+              {c.hero.desc}
             </p>
             <div className="flex flex-wrap gap-4 pt-2">
               <Button asChild size="lg" className="rounded-full shadow-[var(--shadow-soft)] h-12 px-8">
-                <a href="#contact">Book a Tour</a>
+                <a href="#contact">{c.hero.cta1}</a>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full h-12 px-8">
-                <a href="#programs">Our Programs</a>
+                <a href="#programs">{c.hero.cta2}</a>
               </Button>
             </div>
             <div className="flex items-center gap-8 pt-6">
-              <div>
-                <div className="text-3xl font-bold text-primary">12+</div>
-                <div className="text-sm text-muted-foreground">Years caring</div>
-              </div>
-              <div className="h-10 w-px bg-border" />
-              <div>
-                <div className="text-3xl font-bold text-primary">8:1</div>
-                <div className="text-sm text-muted-foreground">Child–teacher</div>
-              </div>
-              <div className="h-10 w-px bg-border" />
-              <div>
-                <div className="text-3xl font-bold text-primary">3</div>
-                <div className="text-sm text-muted-foreground">Languages</div>
-              </div>
+              {c.hero.stats.map((s, i) => (
+                <div key={i} className="flex items-center gap-8">
+                  {i > 0 && <div className="h-10 w-px bg-border" />}
+                  <div>
+                    <div className="text-3xl font-bold text-primary">{s.n}</div>
+                    <div className="text-sm text-muted-foreground">{s.l}</div>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -103,7 +297,7 @@ function Index() {
             <div className="absolute -inset-4 bg-[image:var(--gradient-hero)] rounded-3xl opacity-20 blur-2xl" aria-hidden />
             <img
               src={heroKids}
-              alt="Happy children playing at Akniet kindergarten in Bishkek"
+              alt={c.heroAlt}
               width={1536}
               height={1024}
               className="relative rounded-3xl shadow-[var(--shadow-soft)] w-full h-auto object-cover"
@@ -115,14 +309,9 @@ function Index() {
       {/* About */}
       <section id="about" className="py-24">
         <div className="container mx-auto px-6 max-w-4xl text-center space-y-6">
-          <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">About Us</span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">A second home for your child</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">
-            At Akniet, we believe every child is unique. Our caring teachers create
-            a safe, joyful space where children explore, make friends, and discover
-            the world around them. Located in beautiful Kok-Jar, our bright classrooms
-            and outdoor garden are designed for curious little explorers.
-          </p>
+          <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">{c.about.tag}</span>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.about.title}</h2>
+          <p className="text-lg text-muted-foreground leading-relaxed">{c.about.desc}</p>
         </div>
       </section>
 
@@ -130,25 +319,26 @@ function Index() {
       <section id="programs" className="py-24 bg-secondary/40">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
-            <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">Programs</span>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">What we offer</h2>
-            <p className="text-muted-foreground text-lg">
-              A balanced day of learning, creativity, play and rest.
-            </p>
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">{c.programs.tag}</span>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.programs.title}</h2>
+            <p className="text-muted-foreground text-lg">{c.programs.desc}</p>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {programs.map((p) => (
-              <Card
-                key={p.title}
-                className="p-7 rounded-2xl border-border/60 bg-card hover:shadow-[var(--shadow-card)] hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[image:var(--gradient-hero)] text-primary-foreground mb-4">
-                  <p.icon className="h-6 w-6" />
-                </div>
-                <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
-                <p className="text-muted-foreground">{p.desc}</p>
-              </Card>
-            ))}
+            {c.programs.items.map((p, i) => {
+              const Icon = programIcons[i];
+              return (
+                <Card
+                  key={p.title}
+                  className="p-7 rounded-2xl border-border/60 bg-card hover:shadow-[var(--shadow-card)] hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[image:var(--gradient-hero)] text-primary-foreground mb-4">
+                    <Icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
+                  <p className="text-muted-foreground">{p.desc}</p>
+                </Card>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -158,14 +348,11 @@ function Index() {
         <div className="container mx-auto px-6">
           <div className="rounded-3xl bg-[image:var(--gradient-hero)] p-10 md:p-16 text-primary-foreground shadow-[var(--shadow-soft)] grid md:grid-cols-2 gap-10">
             <div className="space-y-4">
-              <span className="inline-block text-sm font-semibold uppercase tracking-widest opacity-80">Visit Us</span>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">Come say hello</h2>
-              <p className="opacity-90 text-lg max-w-md">
-                We'd love to show you around our kindergarten. Schedule a tour or
-                give us a call — we're here to answer your questions.
-              </p>
+              <span className="inline-block text-sm font-semibold uppercase tracking-widest opacity-80">{c.contact.tag}</span>
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.contact.title}</h2>
+              <p className="opacity-90 text-lg max-w-md">{c.contact.desc}</p>
               <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8 mt-4">
-                <a href="tel:+996700000000">Call Us</a>
+                <a href={realPhoneHref}>{c.contact.call}</a>
               </Button>
             </div>
             <div className="space-y-5">
@@ -174,9 +361,9 @@ function Index() {
                   <MapPin className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="font-semibold">Address</div>
-                  <div className="opacity-90">Son-Kol Street 43, Kok-Jar</div>
-                  <div className="opacity-90">Bishkek, Kyrgyzstan</div>
+                  <div className="font-semibold">{c.contact.address}</div>
+                  <div className="opacity-90">{c.contact.addr1}</div>
+                  <div className="opacity-90">{c.contact.addr2}</div>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -184,8 +371,10 @@ function Index() {
                   <Phone className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="font-semibold">Phone</div>
-                  <div className="opacity-90">+996 (700) 00-00-00</div>
+                  <div className="font-semibold">{c.contact.phone}</div>
+                  <a href={realPhoneHref} className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline">
+                    {realPhoneDisplay}
+                  </a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
@@ -193,7 +382,7 @@ function Index() {
                   <Mail className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="font-semibold">Email</div>
+                  <div className="font-semibold">{c.contact.email}</div>
                   <div className="opacity-90">hello@akniet.kg</div>
                 </div>
               </div>
@@ -202,8 +391,8 @@ function Index() {
                   <Clock className="h-5 w-5" />
                 </div>
                 <div>
-                  <div className="font-semibold">Hours</div>
-                  <div className="opacity-90">Mon–Fri: 8:00 — 18:30</div>
+                  <div className="font-semibold">{c.contact.hours}</div>
+                  <div className="opacity-90">{c.contact.hoursVal}</div>
                 </div>
               </div>
             </div>
@@ -213,7 +402,7 @@ function Index() {
 
       <footer className="border-t border-border py-8">
         <div className="container mx-auto px-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} Akniet Kindergarten · Bishkek, Kyrgyzstan
+          © {new Date().getFullYear()} {c.footer}
         </div>
       </footer>
     </div>
