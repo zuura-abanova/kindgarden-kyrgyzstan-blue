@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import heroKids from "@/assets/hero-kids.jpg";
+import heroKids from "@/assets/akniet-classroom.jpg";
+import logoAkniet from "@/assets/akniet-logo.png";
 import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -196,9 +197,13 @@ function Index() {
       <header className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between gap-4">
           <a href="#" className="flex items-center gap-2 font-bold text-xl">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-[image:var(--gradient-hero)] text-primary-foreground">
-              <Sparkles className="h-5 w-5" />
-            </span>
+            <img
+              src={logoAkniet}
+              alt="Akniet kindergarten logo"
+              width={36}
+              height={36}
+              className="h-9 w-9 object-contain"
+            />
             <span>Akniet</span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
