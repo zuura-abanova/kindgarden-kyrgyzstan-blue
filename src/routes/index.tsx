@@ -2,8 +2,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import heroKids from "@/assets/akniet-classroom.jpg";
+import heroKids from "@/assets/akniet/photo-1.jpg";
 import logoAkniet from "@/assets/akniet-logo.png";
+import gal2 from "@/assets/akniet/photo-2.jpg";
+import gal3 from "@/assets/akniet/photo-3.jpg";
+import gal4 from "@/assets/akniet/photo-4.jpg";
+import gal5 from "@/assets/akniet/photo-5.jpg";
+import gal6 from "@/assets/akniet/photo-6.jpg";
+import gal7 from "@/assets/akniet/photo-7.jpg";
+import gal8 from "@/assets/akniet/photo-8.jpg";
+import gal9 from "@/assets/akniet/photo-9.jpg";
+import gal10 from "@/assets/akniet/photo-10.jpg";
+import gal11 from "@/assets/akniet/photo-11.jpg";
 import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe } from "lucide-react";
 
 export const Route = createFileRoute("/")({
