@@ -369,6 +369,35 @@ function Index() {
       </section>
 
       {/* Contact */}
+      {/* Gallery */}
+      <section id="gallery" className="py-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+            <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">{c.gallery.tag}</span>
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.gallery.title}</h2>
+            <p className="text-muted-foreground text-lg">{c.gallery.desc}</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+            {[gal2, gal3, gal4, gal5, gal6, gal7, gal8, gal9, gal10, gal11].map((src, i) => (
+              <div
+                key={i}
+                className={`relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] ${
+                  i === 0 || i === 5 ? "md:col-span-2 md:row-span-2" : ""
+                }`}
+              >
+                <img
+                  src={src}
+                  alt={`${c.gallery.title} — ${i + 1}`}
+                  loading="lazy"
+                  className="h-full w-full object-cover aspect-square hover:scale-105 transition-transform duration-500"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact */}
       <section id="contact" className="py-24">
         <div className="container mx-auto px-6">
           <div className="rounded-3xl bg-[image:var(--gradient-hero)] p-10 md:p-16 text-primary-foreground shadow-[var(--shadow-soft)] grid md:grid-cols-2 gap-10">
