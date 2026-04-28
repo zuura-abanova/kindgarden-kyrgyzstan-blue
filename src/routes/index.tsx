@@ -26,9 +26,6 @@ export const Route = createFileRoute("/")({
 
 type Lang = "en" | "ru" | "ky";
 
-const PHONE_DISPLAY = "+996 555 012 76 35";
-const PHONE_HREF = "tel:+996555012763547".replace("+996555012763547", "+996555012763  5").trim();
-
 const t = {
   en: {
     nav: { about: "About", programs: "Programs", contact: "Contact", enroll: "Enroll Now" },
@@ -184,11 +181,8 @@ const programIcons = [BookOpen, Palette, Music, Users, Heart, Sparkles];
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const c = t[lang];
-  const phoneDisplay = "+996 555 012 76 35";
-  const phoneHref = "tel:+996555012763547";
-  // Correct phone: +996 55 012 76 35 — 9 digits after country code
-  const realPhoneDisplay = "+996 55 012 76 35";
-  const realPhoneHref = "tel:+996550127635";
+  const phoneDisplay = "+996 55 012 76 35";
+  const phoneHref = "tel:+996550127635";
 
   const langs: { code: Lang; label: string }[] = [
     { code: "en", label: "EN" },
@@ -352,7 +346,7 @@ function Index() {
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.contact.title}</h2>
               <p className="opacity-90 text-lg max-w-md">{c.contact.desc}</p>
               <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8 mt-4">
-                <a href={realPhoneHref}>{c.contact.call}</a>
+                <a href={phoneHref}>{c.contact.call}</a>
               </Button>
             </div>
             <div className="space-y-5">
@@ -372,8 +366,8 @@ function Index() {
                 </div>
                 <div>
                   <div className="font-semibold">{c.contact.phone}</div>
-                  <a href={realPhoneHref} className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline">
-                    {realPhoneDisplay}
+                  <a href={phoneHref} className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline">
+                    {phoneDisplay}
                   </a>
                 </div>
               </div>
