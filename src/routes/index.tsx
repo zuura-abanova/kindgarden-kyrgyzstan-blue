@@ -28,7 +28,7 @@ import gis9 from "@/assets/akniet/gis-9.jpg";
 import gis10 from "@/assets/akniet/gis-10.jpg";
 import gis11 from "@/assets/akniet/gis-11.jpg";
 import gis12 from "@/assets/akniet/gis-12.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation, Facebook, Instagram, Copy, Check } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation, Facebook, Instagram, Copy, Check, GraduationCap, Shield } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -83,6 +83,8 @@ const t = {
         { title: "Social Skills", desc: "Friendship, sharing and kindness in every activity." },
         { title: "Caring Environment", desc: "Small groups with attentive, certified teachers." },
         { title: "Three Languages", desc: "Daily lessons in Kyrgyz, Russian and English." },
+        { title: "Taekwondo Classes", desc: "Fun martial arts sessions that build strength, focus and discipline." },
+        { title: "School Preparation", desc: "Reading, writing and math readiness for our older group." },
       ],
     },
     contact: {
@@ -149,6 +151,8 @@ const t = {
         { title: "Социальные навыки", desc: "Дружба, доброта и умение делиться каждый день." },
         { title: "Заботливая среда", desc: "Небольшие группы и сертифицированные педагоги." },
         { title: "Три языка", desc: "Ежедневные занятия на кыргызском, русском и английском." },
+        { title: "Тхэквондо", desc: "Весёлые занятия боевыми искусствами: сила, концентрация и дисциплина." },
+        { title: "Подготовка к школе", desc: "Чтение, письмо и счёт для старшей группы." },
       ],
     },
     contact: {
@@ -215,6 +219,8 @@ const t = {
         { title: "Коомдук көндүмдөр", desc: "Достук, боорукердик жана бөлүшүү." },
         { title: "Камкор чөйрө", desc: "Кичи топтор жана тажрыйбалуу тарбиячылар." },
         { title: "Үч тил", desc: "Күнүмдүк сабактар: кыргыз, орус, англис." },
+        { title: "Тхэквондо", desc: "Күч, көңүл топтоо жана тартипти өстүргөн кызыктуу сабактар." },
+        { title: "Мектепке даярдоо", desc: "Улуу топ үчүн окуу, жазуу жана эсептөө." },
       ],
     },
     contact: {
@@ -252,7 +258,7 @@ const t = {
   },
 } as const;
 
-const programIcons = [BookOpen, Palette, Music, Users, Heart, Sparkles];
+const programIcons = [BookOpen, Palette, Music, Users, Heart, Sparkles, Shield, GraduationCap];
 const programTones = [
   "bg-primary/15 text-primary",
   "bg-accent/30 text-accent-foreground",
