@@ -28,7 +28,7 @@ import gis9 from "@/assets/akniet/gis-9.jpg";
 import gis10 from "@/assets/akniet/gis-10.jpg";
 import gis11 from "@/assets/akniet/gis-11.jpg";
 import gis12 from "@/assets/akniet/gis-12.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -98,6 +98,13 @@ const t = {
       hours: "Hours",
       hoursVal: "Mon–Fri: 8:00 — 18:30",
     },
+    map: {
+      title: "Find us on the map",
+      desc: "Located in Kok-Jar, just a short drive from central Bishkek.",
+      google: "Directions in Google Maps",
+      yandex: "Directions in Yandex Maps",
+      twogis: "Directions in 2GIS",
+    },
     footer: "Akniet Kindergarten · Bishkek, Kyrgyzstan",
     heroAlt: "Happy children playing at Akniet kindergarten in Bishkek",
     gallery: {
@@ -155,6 +162,13 @@ const t = {
       hours: "Часы работы",
       hoursVal: "Пн–Пт: 8:00 — 18:30",
     },
+    map: {
+      title: "Найдите нас на карте",
+      desc: "Расположены в Кок-Жаре, в нескольких минутах от центра Бишкека.",
+      google: "Маршрут в Google Картах",
+      yandex: "Маршрут в Яндекс Картах",
+      twogis: "Маршрут в 2ГИС",
+    },
     footer: "Детский сад Akniet · Бишкек, Кыргызстан",
     heroAlt: "Счастливые дети в детском саду Akniet в Бишкеке",
     gallery: {
@@ -211,6 +225,13 @@ const t = {
       email: "Электрондук почта",
       hours: "Иш убактысы",
       hoursVal: "Дүй–Жума: 8:00 — 18:30",
+    },
+    map: {
+      title: "Бизди картадан табыңыз",
+      desc: "Көк-Жарда жайгашканбыз, Бишкектин борборунан бир аз алыс.",
+      google: "Google Картадан жол",
+      yandex: "Яндекс Картадан жол",
+      twogis: "2GIS аркылуу жол",
     },
     footer: "Akniet балдар бакчасы · Бишкек, Кыргызстан",
     heroAlt: "Akniet балдар бакчасындагы бактылуу балдар",
@@ -510,6 +531,57 @@ function Index() {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Map & Directions */}
+      <section id="map" className="pb-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{c.map.title}</h2>
+            <p className="text-muted-foreground mt-3">{c.map.desc}</p>
+          </div>
+          <div className="overflow-hidden rounded-3xl border border-border shadow-[var(--shadow-soft)]">
+            <iframe
+              title="Akniet Kindergarten location map"
+              src="https://www.google.com/maps?q=Son-Kol+43,+Kok-Jar,+Bishkek&output=embed"
+              width="100%"
+              height="420"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg" className="rounded-full">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Son-Kol+43+Kok-Jar+Bishkek"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Navigation className="h-4 w-4" /> {c.map.google}
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="secondary" className="rounded-full">
+              <a
+                href="https://yandex.com/maps/?rtext=~Son-Kol+43,+Kok-Jar,+Bishkek&rtt=auto"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Navigation className="h-4 w-4" /> {c.map.yandex}
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full">
+              <a
+                href="https://2gis.kg/bishkek/firm/70000001102761172"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Navigation className="h-4 w-4" /> {c.map.twogis}
+              </a>
+            </Button>
           </div>
         </div>
       </section>
