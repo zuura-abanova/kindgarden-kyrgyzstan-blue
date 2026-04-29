@@ -28,7 +28,7 @@ import gis9 from "@/assets/akniet/gis-9.jpg";
 import gis10 from "@/assets/akniet/gis-10.jpg";
 import gis11 from "@/assets/akniet/gis-11.jpg";
 import gis12 from "@/assets/akniet/gis-12.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
