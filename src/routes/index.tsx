@@ -98,6 +98,13 @@ const t = {
       hours: "Hours",
       hoursVal: "Mon–Fri: 8:00 — 18:30",
     },
+    map: {
+      title: "Find us on the map",
+      desc: "Located in Kok-Jar, just a short drive from central Bishkek.",
+      google: "Directions in Google Maps",
+      yandex: "Directions in Yandex Maps",
+      twogis: "Directions in 2GIS",
+    },
     footer: "Akniet Kindergarten · Bishkek, Kyrgyzstan",
     heroAlt: "Happy children playing at Akniet kindergarten in Bishkek",
     gallery: {
@@ -155,6 +162,13 @@ const t = {
       hours: "Часы работы",
       hoursVal: "Пн–Пт: 8:00 — 18:30",
     },
+    map: {
+      title: "Найдите нас на карте",
+      desc: "Расположены в Кок-Жаре, в нескольких минутах от центра Бишкека.",
+      google: "Маршрут в Google Картах",
+      yandex: "Маршрут в Яндекс Картах",
+      twogis: "Маршрут в 2ГИС",
+    },
     footer: "Детский сад Akniet · Бишкек, Кыргызстан",
     heroAlt: "Счастливые дети в детском саду Akniet в Бишкеке",
     gallery: {
@@ -211,6 +225,13 @@ const t = {
       email: "Электрондук почта",
       hours: "Иш убактысы",
       hoursVal: "Дүй–Жума: 8:00 — 18:30",
+    },
+    map: {
+      title: "Бизди картадан табыңыз",
+      desc: "Көк-Жарда жайгашканбыз, Бишкектин борборунан бир аз алыс.",
+      google: "Google Картадан жол",
+      yandex: "Яндекс Картадан жол",
+      twogis: "2GIS аркылуу жол",
     },
     footer: "Akniet балдар бакчасы · Бишкек, Кыргызстан",
     heroAlt: "Akniet балдар бакчасындагы бактылуу балдар",
