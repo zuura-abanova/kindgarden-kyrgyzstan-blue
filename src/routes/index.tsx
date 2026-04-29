@@ -28,7 +28,7 @@ import gis9 from "@/assets/akniet/gis-9.jpg";
 import gis10 from "@/assets/akniet/gis-10.jpg";
 import gis11 from "@/assets/akniet/gis-11.jpg";
 import gis12 from "@/assets/akniet/gis-12.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation, Facebook, Instagram } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation, Facebook, Instagram, Copy, Check } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -105,6 +105,8 @@ const t = {
       yandex: "Directions in Yandex Maps",
       twogis: "Directions in 2GIS",
     },
+    copyAddress: "Copy address",
+    copied: "Copied!",
     footer: "Akniet Kindergarten · Bishkek, Kyrgyzstan",
     heroAlt: "Happy children playing at Akniet kindergarten in Bishkek",
     gallery: {
@@ -169,6 +171,8 @@ const t = {
       yandex: "Маршрут в Яндекс Картах",
       twogis: "Маршрут в 2ГИС",
     },
+    copyAddress: "Скопировать адрес",
+    copied: "Скопировано!",
     footer: "Детский сад Akniet · Бишкек, Кыргызстан",
     heroAlt: "Счастливые дети в детском саду Akniet в Бишкеке",
     gallery: {
@@ -233,6 +237,8 @@ const t = {
       yandex: "Яндекс Картадан жол",
       twogis: "2GIS аркылуу жол",
     },
+    copyAddress: "Даректи көчүрүү",
+    copied: "Көчүрүлдү!",
     footer: "Akniet балдар бакчасы · Бишкек, Кыргызстан",
     heroAlt: "Akniet балдар бакчасындагы бактылуу балдар",
     gallery: {
@@ -252,8 +258,25 @@ function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const c = t[lang];
   const [videoPlaying, setVideoPlaying] = useState(false);
+  const [addressCopied, setAddressCopied] = useState(false);
   const phoneDisplay = "+996 55 012 76 35";
   const phoneHref = "tel:+996550127635";
+  const fullAddress = "Son-Kol 43, Kok-Jar, Bishkek, Kyrgyzstan";
+
+  const handleCopyAddress = async () => {
+    try {
+      await navigator.clipboard.writeText(fullAddress);
+    } catch {
+      const ta = document.createElement("textarea");
+      ta.value = fullAddress;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand("copy");
+      document.body.removeChild(ta);
+    }
+    setAddressCopied(true);
+    setTimeout(() => setAddressCopied(false), 2000);
+  };
 
   const langs: { code: Lang; label: string }[] = [
     { code: "en", label: "EN" },
@@ -499,6 +522,15 @@ function Index() {
                   <div className="font-semibold">{c.contact.address}</div>
                   <div className="opacity-90">{c.contact.addr1}</div>
                   <div className="opacity-90">{c.contact.addr2}</div>
+                  <button
+                    type="button"
+                    onClick={handleCopyAddress}
+                    aria-label={c.copyAddress}
+                    className="mt-2 inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 transition-colors px-3 py-1.5 text-xs font-semibold"
+                  >
+                    {addressCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
+                    {addressCopied ? c.copied : c.copyAddress}
+                  </button>
                 </div>
               </div>
               <div className="flex items-start gap-4">
