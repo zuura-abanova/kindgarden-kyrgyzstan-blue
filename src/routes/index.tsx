@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import heroKids from "@/assets/akniet/photo-1.jpg";
 import logoAkniet from "@/assets/akniet-logo.png";
+import posterAkniet from "@/assets/akniet/poster.png";
 import gal2 from "@/assets/akniet/photo-2.jpg";
 import gal3 from "@/assets/akniet/photo-3.jpg";
 import gal4 from "@/assets/akniet/photo-4.jpg";
@@ -361,6 +362,23 @@ function Index() {
           </div>
         </div>
       </header>
+
+      {/* Promo poster */}
+      <section className="bg-secondary/30 py-8 md:py-12">
+        <div className="container mx-auto px-6">
+          <a
+            href="#contact"
+            className="block max-w-2xl mx-auto rounded-3xl overflow-hidden shadow-[var(--shadow-soft)] ring-1 ring-border hover:-translate-y-1 hover:shadow-[var(--shadow-card)] transition-all duration-300"
+          >
+            <img
+              src={posterAkniet}
+              alt="Akniet kindergarten enrollment poster"
+              className="w-full h-auto block"
+              loading="eager"
+            />
+          </a>
+        </div>
+      </section>
 
       {/* Hero */}
       <section className="relative overflow-hidden">
