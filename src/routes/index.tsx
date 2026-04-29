@@ -28,7 +28,7 @@ import gis9 from "@/assets/akniet/gis-9.jpg";
 import gis10 from "@/assets/akniet/gis-10.jpg";
 import gis11 from "@/assets/akniet/gis-11.jpg";
 import gis12 from "@/assets/akniet/gis-12.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation, Facebook, Instagram } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -587,8 +587,28 @@ function Index() {
       </section>
 
       <footer className="border-t border-border py-8">
-        <div className="container mx-auto px-6 text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} {c.footer}
+        <div className="container mx-auto px-6 flex flex-col items-center gap-4 text-sm text-muted-foreground">
+          <div className="flex items-center gap-3">
+            <a
+              href="https://www.facebook.com/share/17yVpfzcMK/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              <Facebook className="h-4 w-4" />
+            </a>
+            <a
+              href="https://www.instagram.com/akniet_cadik"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
+            >
+              <Instagram className="h-4 w-4" />
+            </a>
+          </div>
+          <div className="text-center">© 2026 {c.footer}</div>
         </div>
       </footer>
     </div>
