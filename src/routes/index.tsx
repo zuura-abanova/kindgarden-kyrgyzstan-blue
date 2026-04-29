@@ -253,6 +253,14 @@ const t = {
 } as const;
 
 const programIcons = [BookOpen, Palette, Music, Users, Heart, Sparkles];
+const programTones = [
+  "bg-primary/15 text-primary",
+  "bg-accent/30 text-accent-foreground",
+  "bg-sunshine/40 text-secondary-foreground",
+  "bg-mint/40 text-secondary-foreground",
+  "bg-berry/30 text-secondary-foreground",
+  "bg-secondary text-secondary-foreground",
+];
 
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
@@ -419,12 +427,13 @@ function Index() {
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {c.programs.items.map((p, i) => {
               const Icon = programIcons[i];
+              const tone = programTones[i % programTones.length];
               return (
                 <Card
                   key={p.title}
                   className="p-7 rounded-2xl border-border/60 bg-card hover:shadow-[var(--shadow-card)] hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[image:var(--gradient-hero)] text-primary-foreground mb-4">
+                  <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl mb-4 ${tone}`}>
                     <Icon className="h-6 w-6" />
                   </div>
                   <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
