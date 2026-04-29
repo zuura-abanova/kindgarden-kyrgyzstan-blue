@@ -535,6 +535,57 @@ function Index() {
         </div>
       </section>
 
+      {/* Map & Directions */}
+      <section id="map" className="pb-24">
+        <div className="container mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{c.map.title}</h2>
+            <p className="text-muted-foreground mt-3">{c.map.desc}</p>
+          </div>
+          <div className="overflow-hidden rounded-3xl border border-border shadow-[var(--shadow-soft)]">
+            <iframe
+              title="Akniet Kindergarten location map"
+              src="https://www.google.com/maps?q=Son-Kol+43,+Kok-Jar,+Bishkek&output=embed"
+              width="100%"
+              height="420"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Button asChild size="lg" className="rounded-full">
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Son-Kol+43+Kok-Jar+Bishkek"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Navigation className="h-4 w-4" /> {c.map.google}
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="secondary" className="rounded-full">
+              <a
+                href="https://yandex.com/maps/?rtext=~Son-Kol+43,+Kok-Jar,+Bishkek&rtt=auto"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Navigation className="h-4 w-4" /> {c.map.yandex}
+              </a>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="rounded-full">
+              <a
+                href="https://2gis.kg/bishkek/firm/70000001102761172"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Navigation className="h-4 w-4" /> {c.map.twogis}
+              </a>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <footer className="border-t border-border py-8">
         <div className="container mx-auto px-6 text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} {c.footer}
