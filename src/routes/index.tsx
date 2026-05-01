@@ -391,12 +391,14 @@ function Index() {
                 );
               })}
               <span className="text-foreground"> - </span>
-              <span className="text-berry">A</span>
-              <span className="text-primary">K</span>
-              <span className="text-sunshine">N</span>
-              <span className="text-mint">I</span>
-              <span className="text-berry">E</span>
-              <span className="text-primary">T</span>
+              {c.hero.brandWord.split("").map((ch, i) => {
+                const palette = ["text-berry", "text-primary", "text-sunshine", "text-mint", "text-berry", "text-primary"];
+                return (
+                  <span key={`b-${i}`} className={palette[i % palette.length]}>
+                    {ch}
+                  </span>
+                );
+              })}
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
               {c.hero.desc}
