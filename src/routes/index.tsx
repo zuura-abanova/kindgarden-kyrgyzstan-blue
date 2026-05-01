@@ -63,6 +63,7 @@ const t = {
       cta1: "Book a Tour",
       cta2: "Our Programs",
       kindergartenWord: "KINDERGARTEN",
+      brandWord: "AKNIET",
       stats: [
         { n: "1.5–6", l: "Years old" },
         { n: "8:1", l: "Child–teacher" },
@@ -132,6 +133,7 @@ const t = {
       cta1: "Записаться на экскурсию",
       cta2: "Наши программы",
       kindergartenWord: "ДЕТСКИЙ САД",
+      brandWord: "АКНИЕТ",
       stats: [
         { n: "1,5–6", l: "Возраст" },
         { n: "8:1", l: "Дети–педагог" },
@@ -201,6 +203,7 @@ const t = {
       cta1: "Экскурсияга жазылуу",
       cta2: "Программаларыбыз",
       kindergartenWord: "БАЛДАР БАКЧАСЫ",
+      brandWord: "АКНИЕТ",
       stats: [
         { n: "1,5–6", l: "Жаш" },
         { n: "8:1", l: "Бала–тарбиячы" },
