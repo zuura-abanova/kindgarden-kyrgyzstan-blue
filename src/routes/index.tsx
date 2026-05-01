@@ -583,7 +583,12 @@ function Index() {
                 </div>
                 <div>
                   <div className="font-semibold">{c.contact.email}</div>
-                  <div className="opacity-90">hello@akniet.kg</div>
+                  <a
+                    href="mailto:aknietkindergarten@gmail.com"
+                    className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline"
+                  >
+                    aknietkindergarten@gmail.com
+                  </a>
                 </div>
               </div>
               <div className="flex items-start gap-4">
