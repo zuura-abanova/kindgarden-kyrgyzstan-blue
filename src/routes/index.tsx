@@ -62,6 +62,7 @@ const t = {
       desc: "A warm, modern kindergarten in the heart of Bishkek, Kyrgyzstan. We help children ages 1.5–6 grow through play, creativity, and care.",
       cta1: "Book a Tour",
       cta2: "Our Programs",
+      kindergartenWord: "KINDERGARTEN",
       stats: [
         { n: "1.5–6", l: "Years old" },
         { n: "8:1", l: "Child–teacher" },
@@ -130,6 +131,7 @@ const t = {
       desc: "Тёплый современный детский сад в самом сердце Бишкека, Кыргызстан. Мы помогаем детям от 1,5 до 6 лет расти через игру, творчество и заботу.",
       cta1: "Записаться на экскурсию",
       cta2: "Наши программы",
+      kindergartenWord: "ДЕТСКИЙ САД",
       stats: [
         { n: "1,5–6", l: "Возраст" },
         { n: "8:1", l: "Дети–педагог" },
@@ -198,6 +200,7 @@ const t = {
       desc: "Кыргызстандын Бишкек шаарынын жүрөгүндөгү жылуу, заманбап балдар бакчасы. Биз 1,5 жаштан 6 жашка чейинки балдарга оюн, чыгармачылык жана кам көрүү аркылуу өсүүгө жардам беребиз.",
       cta1: "Экскурсияга жазылуу",
       cta2: "Программаларыбыз",
+      kindergartenWord: "БАЛДАР БАКЧАСЫ",
       stats: [
         { n: "1,5–6", l: "Жаш" },
         { n: "8:1", l: "Бала–тарбиячы" },
