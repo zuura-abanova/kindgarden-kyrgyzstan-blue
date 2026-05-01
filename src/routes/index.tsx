@@ -59,7 +59,7 @@ const t = {
       badge: "Kok-Jar, Bishkek",
       title1: "Where little hearts",
       title2: "learn to shine",
-      desc: "A warm, modern kindergarten in the heart of Bishkek. We help children ages 1.5–6 grow through play, creativity, and care.",
+      desc: "A warm, modern kindergarten in the heart of Bishkek, Kyrgyzstan. We help children ages 1.5–6 grow through play, creativity, and care.",
       cta1: "Book a Tour",
       cta2: "Our Programs",
       stats: [
@@ -127,7 +127,7 @@ const t = {
       badge: "Кок-Жар, Бишкек",
       title1: "Где маленькие сердца",
       title2: "учатся сиять",
-      desc: "Тёплый современный детский сад в самом сердце Бишкека. Мы помогаем детям от 1,5 до 6 лет расти через игру, творчество и заботу.",
+      desc: "Тёплый современный детский сад в самом сердце Бишкека, Кыргызстан. Мы помогаем детям от 1,5 до 6 лет расти через игру, творчество и заботу.",
       cta1: "Записаться на экскурсию",
       cta2: "Наши программы",
       stats: [
@@ -195,7 +195,7 @@ const t = {
       badge: "Көк-Жар, Бишкек",
       title1: "Кичинекей жүрөктөр",
       title2: "жаркырап өсөт",
-      desc: "Бишкектин жүрөгүндөгү жылуу, заманбап балдар бакчасы. Биз 1,5 жаштан 6 жашка чейинки балдарга оюн, чыгармачылык жана кам көрүү аркылуу өсүүгө жардам беребиз.",
+      desc: "Кыргызстандын Бишкек шаарынын жүрөгүндөгү жылуу, заманбап балдар бакчасы. Биз 1,5 жаштан 6 жашка чейинки балдарга оюн, чыгармачылык жана кам көрүү аркылуу өсүүгө жардам беребиз.",
       cta1: "Экскурсияга жазылуу",
       cta2: "Программаларыбыз",
       stats: [
