@@ -550,9 +550,14 @@ function Index() {
               <span className="inline-block text-sm font-semibold uppercase tracking-widest opacity-80">{c.contact.tag}</span>
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.contact.title}</h2>
               <p className="opacity-90 text-lg max-w-md">{c.contact.desc}</p>
-              <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8 mt-4">
-                <a href={phoneHref}>{c.contact.call}</a>
-              </Button>
+              <div className="flex flex-wrap gap-3 mt-4">
+                <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8">
+                  <a href={phoneHref}>{c.contact.call}</a>
+                </Button>
+                <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8">
+                  <a href="mailto:aknietkindergarten@gmail.com">{c.contact.emailUs}</a>
+                </Button>
+              </div>
             </div>
             <div className="space-y-5">
               <div className="flex items-start gap-4">
