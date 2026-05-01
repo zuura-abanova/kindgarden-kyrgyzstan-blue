@@ -378,18 +378,15 @@ function Index() {
               <MapPin className="h-4 w-4" /> {c.hero.badge}
             </span>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight uppercase">
-              <span className="text-primary">K</span>
-              <span className="text-sunshine">I</span>
-              <span className="text-mint">N</span>
-              <span className="text-berry">D</span>
-              <span className="text-accent-foreground">E</span>
-              <span className="text-primary">R</span>
-              <span className="text-sunshine">G</span>
-              <span className="text-mint">A</span>
-              <span className="text-berry">R</span>
-              <span className="text-primary">T</span>
-              <span className="text-sunshine">E</span>
-              <span className="text-mint">N</span>
+              {c.hero.kindergartenWord.split("").map((ch, i) => {
+                const palette = ["text-primary", "text-sunshine", "text-mint", "text-berry", "text-accent-foreground"];
+                if (ch === " ") return <span key={`k-${i}`}>{"\u00A0"}</span>;
+                return (
+                  <span key={`k-${i}`} className={palette[i % palette.length]}>
+                    {ch}
+                  </span>
+                );
+              })}
               <span className="text-foreground"> - </span>
               <span className="text-berry">A</span>
               <span className="text-primary">K</span>
