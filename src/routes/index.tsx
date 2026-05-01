@@ -95,6 +95,7 @@ const t = {
       title: "Come say hello",
       desc: "We'd love to show you around our kindergarten. Schedule a tour or give us a call — we're here to answer your questions.",
       call: "Call Us",
+      emailUs: "Email Us",
       address: "Address",
       addr1: "Son-Kol Street 43, Kok-Jar",
       addr2: "Bishkek, Kyrgyzstan",
@@ -165,6 +166,7 @@ const t = {
       title: "Приходите в гости",
       desc: "Мы с радостью покажем вам наш детский сад. Запишитесь на экскурсию или позвоните — мы ответим на все вопросы.",
       call: "Позвонить",
+      emailUs: "Написать на почту",
       address: "Адрес",
       addr1: "ул. Сон-Көл 43, Кок-Жар",
       addr2: "Бишкек, Кыргызстан",
@@ -235,6 +237,7 @@ const t = {
       title: "Учурашууга келиңиз",
       desc: "Бакчабыз менен таанышууга чакырабыз. Экскурсияга жазылыңыз же чалыңыз — суроолоруңузга жооп беребиз.",
       call: "Чалуу",
+      emailUs: "Электрондук кат жөнөтүү",
       address: "Дарек",
       addr1: "Сон-Көл көчөсү 43, Көк-Жар",
       addr2: "Бишкек, Кыргызстан",
@@ -547,9 +550,14 @@ function Index() {
               <span className="inline-block text-sm font-semibold uppercase tracking-widest opacity-80">{c.contact.tag}</span>
               <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.contact.title}</h2>
               <p className="opacity-90 text-lg max-w-md">{c.contact.desc}</p>
-              <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8 mt-4">
-                <a href={phoneHref}>{c.contact.call}</a>
-              </Button>
+              <div className="flex flex-wrap gap-3 mt-4">
+                <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8">
+                  <a href={phoneHref}>{c.contact.call}</a>
+                </Button>
+                <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8">
+                  <a href="mailto:aknietkindergarten@gmail.com">{c.contact.emailUs}</a>
+                </Button>
+              </div>
             </div>
             <div className="space-y-5">
               <div className="flex items-start gap-4">
