@@ -375,9 +375,25 @@ function Index() {
               <MapPin className="h-4 w-4" /> {c.hero.badge}
             </span>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight uppercase">
-              <span className="text-primary">KINDERGARTEN</span>
+              <span className="text-primary">K</span>
+              <span className="text-sunshine">I</span>
+              <span className="text-mint">N</span>
+              <span className="text-berry">D</span>
+              <span className="text-accent-foreground">E</span>
+              <span className="text-primary">R</span>
+              <span className="text-sunshine">G</span>
+              <span className="text-mint">A</span>
+              <span className="text-berry">R</span>
+              <span className="text-primary">T</span>
+              <span className="text-sunshine">E</span>
+              <span className="text-mint">N</span>
               <span className="text-foreground"> - </span>
-              <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">AKNIET</span>
+              <span className="text-berry">A</span>
+              <span className="text-primary">K</span>
+              <span className="text-sunshine">N</span>
+              <span className="text-mint">I</span>
+              <span className="text-berry">E</span>
+              <span className="text-primary">T</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
               {c.hero.desc}
