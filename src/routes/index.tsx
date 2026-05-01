@@ -374,8 +374,10 @@ function Index() {
             <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
               <MapPin className="h-4 w-4" /> {c.hero.badge}
             </span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight">
-              {c.hero.title1} <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">{c.hero.title2}</span>
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight uppercase">
+              <span className="text-primary">KINDERGARTEN</span>
+              <span className="text-foreground"> - </span>
+              <span className="bg-[image:var(--gradient-hero)] bg-clip-text text-transparent">AKNIET</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
               {c.hero.desc}
