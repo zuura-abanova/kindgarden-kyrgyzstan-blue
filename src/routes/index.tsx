@@ -383,7 +383,7 @@ function Index() {
             <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
               <MapPin className="h-4 w-4" /> {c.hero.badge}
             </span>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight uppercase">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] tracking-tight uppercase py-2 break-words">
               {c.hero.kindergartenWord.split("").map((ch, i) => {
                 const palette = ["text-primary", "text-sunshine", "text-mint", "text-berry", "text-accent-foreground"];
                 if (ch === " ") return <span key={`k-${i}`}>{"\u00A0"}</span>;
