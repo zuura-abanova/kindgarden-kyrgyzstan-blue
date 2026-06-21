@@ -383,25 +383,29 @@ function Index() {
             <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
               <MapPin className="h-4 w-4" /> {c.hero.badge}
             </span>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] tracking-tight uppercase py-2 break-words">
-              {c.hero.kindergartenWord.split("").map((ch, i) => {
-                const palette = ["text-primary", "text-sunshine", "text-mint", "text-berry", "text-accent-foreground"];
-                if (ch === " ") return <span key={`k-${i}`}>{"\u00A0"}</span>;
-                return (
-                  <span key={`k-${i}`} className={palette[i % palette.length]}>
-                    {ch}
-                  </span>
-                );
-              })}
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] tracking-tight uppercase py-2">
+              <span className="whitespace-nowrap">
+                {c.hero.kindergartenWord.split("").map((ch, i) => {
+                  const palette = ["text-primary", "text-sunshine", "text-mint", "text-berry", "text-accent-foreground"];
+                  if (ch === " ") return <span key={`k-${i}`}>{"\u00A0"}</span>;
+                  return (
+                    <span key={`k-${i}`} className={palette[i % palette.length]}>
+                      {ch}
+                    </span>
+                  );
+                })}
+              </span>
               <span className="text-foreground"> - </span>
-              {c.hero.brandWord.split("").map((ch, i) => {
-                const palette = ["text-berry", "text-primary", "text-sunshine", "text-mint", "text-berry", "text-primary"];
-                return (
-                  <span key={`b-${i}`} className={palette[i % palette.length]}>
-                    {ch}
-                  </span>
-                );
-              })}
+              <span className="whitespace-nowrap">
+                {c.hero.brandWord.split("").map((ch, i) => {
+                  const palette = ["text-berry", "text-primary", "text-sunshine", "text-mint", "text-berry", "text-primary"];
+                  return (
+                    <span key={`b-${i}`} className={palette[i % palette.length]}>
+                      {ch}
+                    </span>
+                  );
+                })}
+              </span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
               {c.hero.desc}
