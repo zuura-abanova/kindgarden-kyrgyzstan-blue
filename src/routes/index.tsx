@@ -29,7 +29,7 @@ import gis9 from "@/assets/akniet/gis-9.jpg";
 import gis10 from "@/assets/akniet/gis-10.jpg";
 import gis11 from "@/assets/akniet/gis-11.jpg";
 import gis12 from "@/assets/akniet/gis-12.jpg";
-import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation, Facebook, Instagram, Copy, Check, GraduationCap, Shield } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Heart, BookOpen, Palette, Music, Users, Sparkles, Globe, Play, Navigation, Facebook, Instagram, Copy, Check, GraduationCap, Shield, Menu, X } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -281,6 +281,7 @@ const programTones = [
 function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const c = t[lang];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [addressCopied, setAddressCopied] = useState(false);
   const phoneDisplay = "+996 55 012 76 35";
@@ -312,8 +313,8 @@ function Index() {
     <div className="min-h-screen bg-background text-foreground">
       {/* Nav */}
       <header className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
-        <div className="container mx-auto px-6 py-4 flex items-center justify-between gap-4">
-          <a href="#" className="flex items-center gap-2 font-bold text-xl">
+        <div className="container mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 md:flex md:justify-between md:gap-4 md:px-6 md:py-4">
+          <a href="#" className="flex min-w-0 items-center gap-2 font-bold text-xl">
             <img
               src={logoAkniet}
               alt="Akniet kindergarten logo"
@@ -321,7 +322,7 @@ function Index() {
               height={36}
               className="h-9 w-9 object-contain"
             />
-            <span>Akniet</span>
+            <span className="truncate">Akniet</span>
           </a>
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
             <a href="#about" className="hover:text-primary transition-colors">{c.nav.about}</a>
@@ -329,8 +330,8 @@ function Index() {
             <a href="#gallery" className="hover:text-primary transition-colors">{c.nav.gallery}</a>
             <a href="#contact" className="hover:text-primary transition-colors">{c.nav.contact}</a>
           </nav>
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-1 rounded-full border border-border bg-card p-1">
+          <div className="hidden md:flex items-center gap-3">
+            <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1">
               <Globe className="h-4 w-4 ml-2 text-muted-foreground" />
               {langs.map((l) => (
                 <button
@@ -351,25 +352,60 @@ function Index() {
               <a href="#contact">{c.nav.enroll}</a>
             </Button>
           </div>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="h-11 w-11 shrink-0 rounded-full md:hidden"
+            aria-label="Menu"
+            aria-expanded={mobileMenuOpen}
+            onClick={() => setMobileMenuOpen((open) => !open)}
+          >
+            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
         </div>
-        {/* Mobile lang switcher */}
-        <div className="sm:hidden flex justify-center pb-3 -mt-1">
+        <div className="flex justify-center px-4 pb-3 md:hidden">
           <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1">
             {langs.map((l) => (
               <button
                 key={l.code}
                 onClick={() => setLang(l.code)}
-                className={`px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
+                className={`min-h-9 min-w-11 px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
                   lang === l.code
                     ? "bg-primary text-primary-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
+                aria-label={`Switch to ${l.label}`}
               >
                 {l.label}
               </button>
             ))}
           </div>
         </div>
+        {mobileMenuOpen && (
+          <nav className="border-t border-border bg-background px-4 py-3 md:hidden">
+            <div className="container mx-auto grid gap-1 text-sm font-medium">
+              {[
+                ["#about", c.nav.about],
+                ["#programs", c.nav.programs],
+                ["#gallery", c.nav.gallery],
+                ["#contact", c.nav.contact],
+              ].map(([href, label]) => (
+                <a
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex min-h-11 items-center rounded-lg px-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                >
+                  {label}
+                </a>
+              ))}
+              <Button asChild className="mt-2 min-h-11 w-full rounded-full shadow-[var(--shadow-soft)]">
+                <a href="#contact" onClick={() => setMobileMenuOpen(false)}>{c.nav.enroll}</a>
+              </Button>
+            </div>
+          </nav>
+        )}
       </header>
 
       {/* Hero */}
@@ -378,13 +414,13 @@ function Index() {
         <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl" aria-hidden />
         <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-sunshine/30 blur-3xl" aria-hidden />
 
-        <div className="container relative mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32 grid md:grid-cols-2 gap-12 items-center">
+        <div className="container relative mx-auto grid items-center gap-10 overflow-hidden px-4 pb-16 pt-10 md:grid-cols-2 md:gap-12 md:px-6 md:pb-32 md:pt-24">
           <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
               <MapPin className="h-4 w-4" /> {c.hero.badge}
             </span>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.15] tracking-tight uppercase py-2">
-              <span className="whitespace-nowrap">
+            <h1 className="max-w-full py-2 text-2xl font-bold uppercase leading-[1.2] tracking-tight sm:text-5xl md:text-6xl md:leading-[1.15] lg:text-7xl">
+              <span className="block whitespace-nowrap md:inline">
                 {c.hero.kindergartenWord.split("").map((ch, i) => {
                   const palette = ["text-primary", "text-sunshine", "text-mint", "text-berry", "text-accent-foreground"];
                   if (ch === " ") return <span key={`k-${i}`}>{"\u00A0"}</span>;
@@ -407,36 +443,36 @@ function Index() {
                 })}
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
+            <p className="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl">
               {c.hero.desc}
             </p>
-            <div className="flex flex-wrap gap-4 pt-2">
-              <Button asChild size="lg" className="rounded-full shadow-[var(--shadow-soft)] h-12 px-8">
+            <div className="grid grid-cols-1 gap-3 pt-2 min-[380px]:grid-cols-2 md:flex md:flex-wrap md:gap-4">
+              <Button asChild size="lg" className="h-12 w-full rounded-full px-4 shadow-[var(--shadow-soft)] md:w-auto md:px-8">
                 <a href="#contact">{c.hero.cta1}</a>
               </Button>
-              <Button asChild size="lg" variant="outline" className="rounded-full h-12 px-8">
+              <Button asChild size="lg" variant="outline" className="h-12 w-full rounded-full px-4 md:w-auto md:px-8">
                 <a href="#programs">{c.hero.cta2}</a>
               </Button>
             </div>
-            <div className="flex items-center gap-8 pt-6">
+            <div className="grid grid-cols-3 items-start pt-4 md:flex md:items-center md:gap-8 md:pt-6">
               {c.hero.stats.map((s, i) => (
-                <div key={i} className="flex items-center gap-8">
-                  {i > 0 && <div className="h-10 w-px bg-border" />}
-                  <div>
-                    <div className="text-3xl font-bold text-primary">{s.n}</div>
-                    <div className="text-sm text-muted-foreground">{s.l}</div>
+                <div key={i} className="flex min-w-0 items-start md:items-center md:gap-8">
+                  {i > 0 && <div className="mr-3 h-10 w-px shrink-0 bg-border md:mr-0" />}
+                  <div className="min-w-0">
+                    <div className="text-2xl font-bold text-primary md:text-3xl">{s.n}</div>
+                    <div className="text-xs leading-tight text-muted-foreground sm:text-sm">{s.l}</div>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="relative">
+          <div className="relative min-w-0">
             <div className="absolute -inset-4 bg-[image:var(--gradient-hero)] rounded-3xl opacity-20 blur-2xl" aria-hidden />
             <img
               src={posterAkniet}
               alt={c.heroAlt}
-              className="relative rounded-3xl shadow-[var(--shadow-soft)] w-full h-auto object-cover"
+              className="relative h-auto w-full max-w-full rounded-3xl object-contain shadow-[var(--shadow-soft)]"
               loading="eager"
             />
           </div>
