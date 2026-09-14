@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import heroKids from "@/assets/akniet/photo-1.jpg";
@@ -282,11 +282,31 @@ function Index() {
   const [lang, setLang] = useState<Lang>("en");
   const c = t[lang];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const mobileHeaderRef = useRef<HTMLElement>(null);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [addressCopied, setAddressCopied] = useState(false);
   const phoneDisplay = "+996 55 012 76 35";
   const phoneHref = "tel:+996550127635";
   const fullAddress = "Son-Kol 43, Kok-Jar, Bishkek, Kyrgyzstan";
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const closeOnOutsideTap = (event: PointerEvent) => {
+      if (mobileHeaderRef.current?.contains(event.target as Node)) return;
+      setMobileMenuOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMobileMenuOpen(false);
+    };
+
+    document.addEventListener("pointerdown", closeOnOutsideTap);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOnOutsideTap);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [mobileMenuOpen]);
 
   const handleCopyAddress = async () => {
     try {
@@ -312,7 +332,7 @@ function Index() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       {/* Nav */}
-      <header className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
+      <header ref={mobileHeaderRef} className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
         <div className="container mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 md:flex md:justify-between md:gap-4 md:px-6 md:py-4">
           <a href="#" className="flex min-w-0 items-center gap-2 font-bold text-xl">
             <img
@@ -364,27 +384,29 @@ function Index() {
             {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
-        <div className="flex justify-center px-4 pb-3 md:hidden">
-          <div className="flex items-center gap-1 rounded-full border border-border bg-card p-1">
-            {langs.map((l) => (
-              <button
-                key={l.code}
-                onClick={() => setLang(l.code)}
-                className={`min-h-9 min-w-11 px-3 py-1 text-xs font-semibold rounded-full transition-colors ${
-                  lang === l.code
-                    ? "bg-primary text-primary-foreground"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-                aria-label={`Switch to ${l.label}`}
-              >
-                {l.label}
-              </button>
-            ))}
-          </div>
-        </div>
         {mobileMenuOpen && (
-          <nav className="border-t border-border bg-background px-4 py-3 md:hidden">
+          <nav className="border-t border-border bg-background px-4 py-4 shadow-[var(--shadow-card)] md:hidden">
             <div className="container mx-auto grid gap-1 text-sm font-medium">
+              <div className="mb-3 flex items-center justify-between gap-3 border-b border-border pb-3">
+                <Globe className="h-5 w-5 shrink-0 text-muted-foreground" aria-hidden />
+                <div className="grid flex-1 grid-cols-3 gap-1 rounded-full border border-border bg-card p-1">
+                  {langs.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => setLang(l.code)}
+                      className={`min-h-10 rounded-full px-3 text-xs font-semibold transition-colors ${
+                        lang === l.code
+                          ? "bg-primary text-primary-foreground"
+                          : "text-muted-foreground hover:text-foreground"
+                      }`}
+                      aria-label={`Switch to ${l.label}`}
+                      aria-pressed={lang === l.code}
+                    >
+                      {l.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
               {[
                 ["#about", c.nav.about],
                 ["#programs", c.nav.programs],
@@ -414,7 +436,7 @@ function Index() {
         <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary/20 blur-3xl" aria-hidden />
         <div className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-sunshine/30 blur-3xl" aria-hidden />
 
-        <div className="container relative mx-auto grid items-center gap-10 overflow-hidden px-4 pb-16 pt-10 md:grid-cols-2 md:gap-12 md:px-6 md:pb-32 md:pt-24">
+        <div className="container relative mx-auto grid items-center gap-8 overflow-hidden px-4 pb-16 pt-8 md:grid-cols-2 md:gap-12 md:px-6 md:pb-32 md:pt-24">
           <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-1.5 text-sm font-medium text-accent-foreground">
               <MapPin className="h-4 w-4" /> {c.hero.badge}
@@ -446,7 +468,7 @@ function Index() {
             <p className="max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg md:text-xl">
               {c.hero.desc}
             </p>
-            <div className="grid grid-cols-1 gap-3 pt-2 min-[380px]:grid-cols-2 md:flex md:flex-wrap md:gap-4">
+            <div className="grid grid-cols-1 gap-3 pt-2 md:flex md:flex-wrap md:gap-4">
               <Button asChild size="lg" className="h-12 w-full rounded-full px-4 shadow-[var(--shadow-soft)] md:w-auto md:px-8">
                 <a href="#contact">{c.hero.cta1}</a>
               </Button>
@@ -480,30 +502,30 @@ function Index() {
       </section>
 
       {/* About */}
-      <section id="about" className="py-24">
-        <div className="container mx-auto px-6 max-w-4xl text-center space-y-6">
+      <section id="about" className="py-16 md:py-24">
+        <div className="container mx-auto max-w-4xl space-y-5 px-4 text-center md:space-y-6 md:px-6">
           <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">{c.about.tag}</span>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.about.title}</h2>
-          <p className="text-lg text-muted-foreground leading-relaxed">{c.about.desc}</p>
+          <h2 className="text-3xl font-bold tracking-tight md:text-5xl">{c.about.title}</h2>
+          <p className="text-base leading-relaxed text-muted-foreground md:text-lg">{c.about.desc}</p>
         </div>
       </section>
 
       {/* Programs */}
-      <section id="programs" className="py-24 bg-secondary/40">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-16 space-y-4">
+      <section id="programs" className="bg-secondary/40 py-16 md:py-24">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="mx-auto mb-10 max-w-2xl space-y-4 text-center md:mb-16">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">{c.programs.tag}</span>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.programs.title}</h2>
-            <p className="text-muted-foreground text-lg">{c.programs.desc}</p>
+            <h2 className="text-3xl font-bold tracking-tight md:text-5xl">{c.programs.title}</h2>
+            <p className="text-base text-muted-foreground md:text-lg">{c.programs.desc}</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid gap-4 sm:grid-cols-2 md:gap-6 lg:grid-cols-3">
             {c.programs.items.map((p, i) => {
               const Icon = programIcons[i];
               const tone = programTones[i % programTones.length];
               return (
                 <Card
                   key={p.title}
-                  className="p-7 rounded-2xl border-border/60 bg-card hover:shadow-[var(--shadow-card)] hover:-translate-y-1 transition-all duration-300"
+                  className="rounded-2xl border-border/60 bg-card p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-card)] md:p-7"
                 >
                   <div className={`inline-flex h-12 w-12 items-center justify-center rounded-xl mb-4 ${tone}`}>
                     <Icon className="h-6 w-6" />
@@ -519,15 +541,15 @@ function Index() {
 
       {/* Contact */}
       {/* Gallery */}
-      <section id="gallery" className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12 space-y-4">
+      <section id="gallery" className="py-16 md:py-24">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="mx-auto mb-10 max-w-2xl space-y-4 text-center md:mb-12">
             <span className="inline-block text-sm font-semibold uppercase tracking-widest text-primary">{c.gallery.tag}</span>
-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.gallery.title}</h2>
-            <p className="text-muted-foreground text-lg">{c.gallery.desc}</p>
+            <h2 className="text-3xl font-bold tracking-tight md:text-5xl">{c.gallery.title}</h2>
+            <p className="text-base text-muted-foreground md:text-lg">{c.gallery.desc}</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-            <div className="relative overflow-hidden rounded-2xl shadow-[var(--shadow-soft)] md:col-span-2 md:row-span-2 group bg-black">
+            <div className="group relative col-span-2 overflow-hidden rounded-2xl bg-foreground shadow-[var(--shadow-soft)] md:row-span-2">
               {videoPlaying ? (
                 <video
                   src={tourVideo}
@@ -583,28 +605,28 @@ function Index() {
       </section>
 
       {/* Contact */}
-      <section id="contact" className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="rounded-3xl bg-[image:var(--gradient-hero)] p-10 md:p-16 text-primary-foreground shadow-[var(--shadow-soft)] grid md:grid-cols-2 gap-10">
-            <div className="space-y-4">
+      <section id="contact" className="py-16 md:py-24">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid gap-8 rounded-3xl bg-[image:var(--gradient-hero)] p-6 text-primary-foreground shadow-[var(--shadow-soft)] md:grid-cols-2 md:gap-10 md:p-16">
+            <div className="min-w-0 space-y-4">
               <span className="inline-block text-sm font-semibold uppercase tracking-widest opacity-80">{c.contact.tag}</span>
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tight">{c.contact.title}</h2>
-              <p className="opacity-90 text-lg max-w-md">{c.contact.desc}</p>
-              <div className="flex flex-wrap gap-3 mt-4">
-                <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8">
+              <h2 className="text-3xl font-bold tracking-tight md:text-5xl">{c.contact.title}</h2>
+              <p className="max-w-md text-base opacity-90 md:text-lg">{c.contact.desc}</p>
+              <div className="mt-4 grid gap-3 sm:flex sm:flex-wrap">
+                <Button asChild size="lg" variant="secondary" className="h-12 w-full rounded-full px-5 sm:w-auto md:px-8">
                   <a href={phoneHref}>{c.contact.call}</a>
                 </Button>
-                <Button asChild size="lg" variant="secondary" className="rounded-full h-12 px-8">
+                <Button asChild size="lg" variant="secondary" className="h-12 w-full rounded-full px-5 sm:w-auto md:px-8">
                   <a href="mailto:aknietkindergarten@gmail.com">{c.contact.emailUs}</a>
                 </Button>
               </div>
             </div>
-            <div className="space-y-5">
+            <div className="min-w-0 space-y-5">
               <div className="flex items-start gap-4">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15">
                   <MapPin className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="font-semibold">{c.contact.address}</div>
                   <div className="opacity-90">{c.contact.addr1}</div>
                   <div className="opacity-90">{c.contact.addr2}</div>
@@ -623,7 +645,7 @@ function Index() {
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15">
                   <Phone className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="font-semibold">{c.contact.phone}</div>
                   <a href={phoneHref} className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline">
                     {phoneDisplay}
@@ -634,11 +656,11 @@ function Index() {
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15">
                   <Mail className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="font-semibold">{c.contact.email}</div>
                   <a
                     href="mailto:aknietkindergarten@gmail.com"
-                    className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline"
+                    className="break-all opacity-90 underline-offset-2 hover:opacity-100 hover:underline"
                   >
                     aknietkindergarten@gmail.com
                   </a>
@@ -648,7 +670,7 @@ function Index() {
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white/15">
                   <Clock className="h-5 w-5" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="font-semibold">{c.contact.hours}</div>
                   <div className="opacity-90">{c.contact.hoursVal}</div>
                 </div>
@@ -659,8 +681,8 @@ function Index() {
       </section>
 
       {/* Map & Directions */}
-      <section id="map" className="pb-24">
-        <div className="container mx-auto px-6">
+      <section id="map" className="pb-16 md:pb-24">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="text-center max-w-2xl mx-auto mb-10">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">{c.map.title}</h2>
             <p className="text-muted-foreground mt-3">{c.map.desc}</p>
@@ -670,15 +692,15 @@ function Index() {
               title="Akniet Kindergarten location map"
               src="https://www.google.com/maps?q=Son-Kol+43,+Kok-Jar,+Bishkek&output=embed"
               width="100%"
-              height="420"
+              className="h-80 w-full md:h-[420px]"
               style={{ border: 0 }}
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
           </div>
-          <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Button asChild size="lg" className="rounded-full">
+          <div className="mt-6 grid gap-3 sm:flex sm:flex-wrap sm:justify-center">
+            <Button asChild size="lg" className="h-12 w-full rounded-full px-4 sm:w-auto">
               <a
                 href="https://www.google.com/maps/dir/?api=1&destination=Son-Kol+43+Kok-Jar+Bishkek"
                 target="_blank"
@@ -687,7 +709,7 @@ function Index() {
                 <Navigation className="h-4 w-4" /> {c.map.google}
               </a>
             </Button>
-            <Button asChild size="lg" variant="secondary" className="rounded-full">
+            <Button asChild size="lg" variant="secondary" className="h-12 w-full rounded-full px-4 sm:w-auto">
               <a
                 href="https://yandex.com/maps/?rtext=~Son-Kol+43,+Kok-Jar,+Bishkek&rtt=auto"
                 target="_blank"
@@ -696,7 +718,7 @@ function Index() {
                 <Navigation className="h-4 w-4" /> {c.map.yandex}
               </a>
             </Button>
-            <Button asChild size="lg" variant="outline" className="rounded-full">
+            <Button asChild size="lg" variant="outline" className="h-12 w-full rounded-full px-4 sm:w-auto">
               <a
                 href="https://2gis.kg/bishkek/firm/70000001102761172"
                 target="_blank"
@@ -710,14 +732,14 @@ function Index() {
       </section>
 
       <footer className="border-t border-border py-8">
-        <div className="container mx-auto px-6 flex flex-col items-center gap-4 text-sm text-muted-foreground">
+        <div className="container mx-auto flex flex-col items-center gap-4 px-4 text-sm text-muted-foreground md:px-6">
           <div className="flex items-center gap-3">
             <a
               href="https://www.facebook.com/share/17yVpfzcMK/?mibextid=wwXIfr"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Facebook"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border transition-colors hover:bg-accent hover:text-accent-foreground md:h-10 md:w-10"
             >
               <Facebook className="h-4 w-4" />
             </a>
@@ -726,7 +748,7 @@ function Index() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-border hover:bg-accent hover:text-accent-foreground transition-colors"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border transition-colors hover:bg-accent hover:text-accent-foreground md:h-10 md:w-10"
             >
               <Instagram className="h-4 w-4" />
             </a>
