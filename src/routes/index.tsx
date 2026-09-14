@@ -334,7 +334,7 @@ function Index() {
       {/* Nav */}
       <header ref={mobileHeaderRef} className="sticky top-0 z-40 backdrop-blur-md bg-background/80 border-b border-border">
         <div className="container mx-auto grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 px-4 py-3 md:flex md:justify-between md:gap-4 md:px-6 md:py-4">
-          <a href="#" className="flex min-w-0 items-center gap-2 font-bold text-xl">
+          <a href="#" className="flex min-h-11 min-w-0 items-center gap-2 font-bold text-xl md:min-h-0">
             <img
               src={logoAkniet}
               alt="Akniet kindergarten logo"
@@ -634,7 +634,7 @@ function Index() {
                     type="button"
                     onClick={handleCopyAddress}
                     aria-label={c.copyAddress}
-                    className="mt-2 inline-flex items-center gap-2 rounded-full bg-white/15 hover:bg-white/25 transition-colors px-3 py-1.5 text-xs font-semibold"
+                    className="mt-2 inline-flex min-h-11 items-center gap-2 rounded-full bg-white/15 px-4 py-2 text-xs font-semibold transition-colors hover:bg-white/25 md:min-h-0 md:px-3 md:py-1.5"
                   >
                     {addressCopied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
                     {addressCopied ? c.copied : c.copyAddress}
@@ -647,7 +647,7 @@ function Index() {
                 </div>
                 <div className="min-w-0">
                   <div className="font-semibold">{c.contact.phone}</div>
-                  <a href={phoneHref} className="opacity-90 hover:opacity-100 underline-offset-2 hover:underline">
+                  <a href={phoneHref} className="inline-flex min-h-11 items-center opacity-90 underline-offset-2 hover:opacity-100 hover:underline md:min-h-0">
                     {phoneDisplay}
                   </a>
                 </div>
@@ -660,7 +660,7 @@ function Index() {
                   <div className="font-semibold">{c.contact.email}</div>
                   <a
                     href="mailto:aknietkindergarten@gmail.com"
-                    className="break-all opacity-90 underline-offset-2 hover:opacity-100 hover:underline"
+                    className="inline-flex min-h-11 items-center break-all opacity-90 underline-offset-2 hover:opacity-100 hover:underline md:min-h-0"
                   >
                     aknietkindergarten@gmail.com
                   </a>
